@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+
+<link rel="stylesheet" type="text/css" href="css/roll.css">
+<meta charset="utf-8">
+</head>
+
+<body>
+<script type="text/javascript" src="js/jquery.js"></script>
+  <div class="centered noselect" id="content">
+  <div id="pagetitle">&#9733;Search Chaos Magic&#9733;</div>
+    <input type="number" id="rollinput"/>
+    <div id="wrapper"><div id="rollbutton">Zap!&#9889;</div></div>
+    <div id="result"></div>
+    <div class="text"></div>
+    <div id ="magiceffect"></div>
+    <div id ="footer">made by emmibun. magic effects from <a href="http://centralia.aquest.com/downloads/NLRMEv2.pdf">orrex</a></div>
+    </div>
+  <script>
+
+  $(document).ready(function(){
+    $(".text").load("chaosbursts.txt");
+    $(".text").hide();
+  });
+
+  function roll(number){
+  	return Math.round(Math.random()*number);
+  }
+  
+  function FormatNumberLength(num, length) {
+      var r = "" + num;
+      while (r.length < length) {
+          r = "0" + r;
+      }
+      return r;
+  }
+  function findMagicalEffect(number){
+    var chaostext = $('.text').html();
+    var firstIndex = chaostext.indexOf(FormatNumberLength(number,4));
+    var lastIndex = chaostext.indexOf(FormatNumberLength((number+1),4));
+    return chaostext.substring(firstIndex,lastIndex);
+
+  }
+  
+  
+  
+
+  $('#rollbutton').click(function(){
+  	var input = parseInt($('#rollinput').val());
+    //var theRoll = roll(input);
+    //var theRoll = roll(10000);
+  	//$('#result').empty().append("Result: " + theRoll);
+    $("#magiceffect").empty();
+    //if (theRoll <= 10000){
+      $("#magiceffect").append(findMagicalEffect(input));
+    //}
+
+  });
+
+
+
+
+  </script>
+</body>
+</html>
